@@ -9,12 +9,7 @@ sess = tf.InteractiveSession()
 x = tf.placeholder("float",shape=[None,784])
 #y_也是一个二维数组，其中每一行为一个10维的one-hot向量，用于代表对应某一MNIST图片的类别
 y_ = tf.placeholder("float",shape=[None,10])
-#
-# W = tf.Variable(tf.zeros[784,10])
-# b = tf.Variable(tf.zeros[10])
-#
-# #初始化变量
-# sess.run(tf.initialize_all_variables())
+
 
 #在模型中应该加入少量的噪声来打破对称性以及避免0梯度
 #因为使用的是Relu神经元，所以可以使用一个较小的正数来初始化bias
