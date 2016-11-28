@@ -5,7 +5,6 @@ mnist = input_data.read_data_sets('MNIST',one_hot=True)
 
 sess = tf.InteractiveSession()
 
-
 #x是一个二维数组，第一个代表张数，第二个代表像素大小
 x = tf.placeholder("float",shape=[None,784])
 #y_也是一个二维数组，其中每一行为一个10维的one-hot向量，用于代表对应某一MNIST图片的类别
