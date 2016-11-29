@@ -30,18 +30,24 @@ def conv2d(x,W):
 def max_pool_2x2(x):
     return tf.nn.max_pool(x,ksize=[1,2,2,1],strides=[1,2,2,1],padding='SAME')
 
+
 #设置第一层卷积,由一个卷积接一个max pooling完成。卷积在每个5x5的pacth中算出32个特征
 #卷积的权重张量形状是[5,5,1,32]，前两个维度是patch的大小，接着是输入的通道数目
 #最后是输出的通道数目，而对于每一个输出通道都由一个对应的偏置量
 W_conv1 = weight_variable([5,5,1,32])
 b_conv1 = bias_variable([32])
+# print(W_conv1.value(),b_conv1.value())
+
 
 #把x变成4维向量2,3维代表宽高，最后一维代表图片的颜色通道数，rgb=3，灰度图=1
+#把所有的x转化成28x28的二维数组，第一个-1代表的是张数，可以取随意值
 x_image = tf.reshape(x,[-1,28,28,1])
+
 
 #我们把x_image和权值向量进行卷积，加上偏置项，然后应用Relu激活函数，最后进行max pooling
 h_conv1 = tf.nn.relu(conv2d(x_image,W_conv1)+b_conv1)
 h_pool1 = max_pool_2x2(h_conv1)
+
 
 #第二层卷积，每个5x5的patch会得到64个特征
 W_conv2 = weight_variable([5,5,32,64])
