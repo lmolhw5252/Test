@@ -81,6 +81,7 @@ correct_prediction = tf.equal(tf.argmax(y_conv,1),tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,"float"))
 
 sess.run(tf.initialize_all_variables())
+
 for i in range(2000):
     batch = mnist.train.next_batch(50)
     if i%100 ==0:
@@ -93,3 +94,5 @@ for i in range(2000):
 print("test accuracy %g"%accuracy.eval(feed_dict={
     x:mnist.test.images,y_:mnist.test.labels,keep_prob:1.0
 }))
+
+
