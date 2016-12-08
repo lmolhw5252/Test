@@ -1,6 +1,6 @@
 import tensorflow as tf
 import  input_data
-import matplotlib as mlt
+import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
@@ -100,23 +100,51 @@ for i in range(2000):
 # print("test accuracy %g"%accuracy.eval(feed_dict={
 #     x:mnist.test.images,y_:mnist.test.labels,keep_prob:1.0
 # }))
+
+
 '''导入一张图片作为测试'''
-test_im = Image.open('1.png').convert('L')
+# test_im = Image.open('1.png').convert('L')
+# #
+# out = np.array(test_im.resize((28,28)))
+# # print(out.shape)
 #
-out = np.array(test_im.resize((28,28)))
-# print(out.shape)
+# out_test = np.reshape(out,(1,-1))
+# out_test = tuple(out_test)
+# # print(out_test)
+# out_y = ([[0,1,0,0,0,0,0,0,0,0]])
+# print(out_y)
+#
+# # batch = mnist.train.next_batch(1)
+#
+# print("test accuracy %g"% accuracy.eval(feed_dict={
+#     x:out_test,y_:out_y,keep_prob:1.0
+# }))
 
-out_test = np.reshape(out,(1,-1))
-out_test = tuple(out_test)
-# print(out_test)
-out_y = ([[0,1,0,0,0,0,0,0,0,0]])
-print(out_y)
+'''获取所有图片，并reshape成10x784的大小'''
+img_all = []
+for i in range(10):
+    url='%s.png'%i
+    img = Image.open(url).convert('L')
+    img = np.array(img.resize((28,28)))
+    img = np.reshape(img,(1,-1))
+    img_all = np.array(list(img_all)+list(img))
+# print(img_all.shape)
+y_test = np.eye(10,dtype=float)
 
-# batch = mnist.train.next_batch(1)
+for i in range(10):
+    #创建一个两行四列的图，图的数量为index+1
+    plt.subplot(2, 5, i + 1)
+    # 设置轴属性,忽略横轴
+    plt.axis('off')
+    plt.imshow(img_all[i].reshape((28, 28)), cmap=plt.cm.gray_r, interpolation='nearest')
+    plt.title('Prediction: %i' % i)
+    print("test accuracy %g" % accuracy.eval(feed_dict={
+        x:img_all,y_:y_test,keep_prob:1.0
+    }))
+plt.show()
 
-print("test accuracy %g"% accuracy.eval(feed_dict={
-    x:out_test,y_:out_y,keep_prob:1.0
-}))
+
+
 
 
 
