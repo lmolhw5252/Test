@@ -112,10 +112,10 @@ out_test = tuple(out_test)
 out_y = ([[0,1,0,0,0,0,0,0,0,0]])
 print(out_y)
 
-batch = mnist.train.next_batch(1)
+# batch = mnist.train.next_batch(1)
 
 print("test accuracy %g"% accuracy.eval(feed_dict={
-    x:batch[0],y_:batch[1],keep_prob:1.0
+    x:out_test,y_:out_y,keep_prob:1.0
 }))
 
 
