@@ -1,7 +1,13 @@
 import tensorflow as tf
 import  input_data
+import matplotlib as mlt
+import numpy as np
+from PIL import Image
+
+
 
 mnist = input_data.read_data_sets('MNIST',one_hot=True)
+print(mnist.__class__)
 
 sess = tf.InteractiveSession()
 
@@ -91,8 +97,26 @@ for i in range(2000):
         print("step %d, training accuracy %g"%(i,train_accuracy))
     train_step.run(feed_dict={x:batch[0],y_:batch[1],keep_prob:0.5})
 
-print("test accuracy %g"%accuracy.eval(feed_dict={
-    x:mnist.test.images,y_:mnist.test.labels,keep_prob:1.0
+# print("test accuracy %g"%accuracy.eval(feed_dict={
+#     x:mnist.test.images,y_:mnist.test.labels,keep_prob:1.0
+# }))
+'''导入一张图片作为测试'''
+test_im = Image.open('1.png').convert('L')
+#
+out = np.array(test_im.resize((28,28)))
+# print(out.shape)
+
+out_test = np.reshape(out,(1,-1))
+out_test = tuple(out_test)
+# print(out_test)
+out_y = ([[0,1,0,0,0,0,0,0,0,0]])
+print(out_y)
+
+batch = mnist.train.next_batch(1)
+
+print("test accuracy %g"% accuracy.eval(feed_dict={
+    x:batch[0],y_:batch[1],keep_prob:1.0
 }))
+
 
 
