@@ -87,31 +87,38 @@ images_and_predictions = list(zip(digits.images[n_samples / 2:], predicted))
 
 # print(digits.images[n_samples / 2:].shape)
 
-for index, (image, prediction) in enumerate(images_and_predictions[5:9]):
-    # print(prediction)
-    plt.subplot(2, 4, index + 5)
-    plt.axis('off')
-    plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
-    # print(image.shape)
-    plt.title('Prediction: %i' % prediction)
+# for index, (image, prediction) in enumerate(images_and_predictions[5:9]):
+#     # print(prediction)
+#     plt.subplot(2, 4, index + 5)
+#     plt.axis('off')
+#     plt.imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+#     # print(image.shape)
+#     plt.title('Prediction: %i' % prediction)
+#
+# plt.show()
 
-plt.show()
 '''输入图片测试'''
-pil_im = Image.open('9.png').convert('L')
+# test_im = Image.open('9.png').convert('L')
+#
+# out = np.array(test_im.resize((8,8)))
+# # print(out.shape)
+#
+# out_test = np.reshape(out,(1,-1))
+#
+# # print(out_test.shape)
 
-out = np.array(pil_im.resize((8,8)))
-# print(out.shape)
 
+'''使用自带数据集测试'''
+test_im = digits.data[2]
+out = np.reshape(test_im,(8,-1))
+# print(test_im.shape)
 out_test = np.reshape(out,(1,-1))
 
-# print(out_test.shape)
 
-
+'''测试数据'''
 test  = classifier.predict(out_test)
-
 plt.imshow(out, cmap=plt.cm.gray_r, interpolation='nearest')
 plt.title('Prediction: %i' %test)
 plt.show()
-
 
 # print(test.__class__)
