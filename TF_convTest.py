@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-
-
 mnist = input_data.read_data_sets('MNIST',one_hot=True)
 print(mnist.__class__)
 
@@ -73,6 +71,7 @@ W_fc2 = weight_variable([1024,10])
 b_fc2 = bias_variable([10])
 
 y_conv = tf.nn.softmax(tf.matmul(h_fc1_drop,W_fc2)+b_fc2)
+print(y_conv)
 
 #测评
 
@@ -141,6 +140,7 @@ for i in range(10):
     print("test accuracy %g" % accuracy.eval(feed_dict={
         x:img_all,y_:y_test,keep_prob:1.0
     }))
+
 plt.show()
 
 
